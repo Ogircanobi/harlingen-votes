@@ -1,0 +1,572 @@
+<title>Harlingen City Commission Accountability — Mockup</title>
+<style>
+  /* Deliberately single-theme: plain white page, in period style. */
+  body {
+    background: #FFFFFF;
+    color: #000000;
+    font: 12px Verdana, Geneva, Arial, sans-serif;
+    margin: 0;
+    padding: 0 12px;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; }
+
+  .mock-note {
+    color: #CC0000;
+    font-weight: bold;
+    font-size: 11px;
+    text-align: center;
+    padding: 6px 0 2px;
+  }
+
+  h1.site-title {
+    font: bold 26px "Times New Roman", Times, serif;
+    color: #003366;
+    margin: 10px 0 2px;
+  }
+  .tagline { font-size: 11px; color: #333333; margin: 0 0 8px; }
+
+  a { color: #0000EE; }
+  a:visited { color: #551A8B; }
+
+  .topnav { font-size: 12px; margin: 6px 0; }
+  .topnav a.current { font-weight: bold; color: #000000; text-decoration: none; }
+
+  hr { border: 0; border-top: 1px solid #999999; margin: 8px 0; }
+
+  h2 { font: bold 18px "Times New Roman", Times, serif; color: #003366; margin: 18px 0 6px; }
+  h3 { font: bold 14px "Times New Roman", Times, serif; color: #003366; margin: 14px 0 4px; }
+  p, ul { font-size: 12px; line-height: 1.5; max-width: 78ch; }
+  .small { font-size: 11px; color: #333333; }
+  .updated { font-size: 11px; color: #555555; }
+
+  .scrollbox { overflow-x: auto; }
+
+  /* the votes table scrolls in its own box, independent of the page */
+  .tablebox {
+    height: 440px;
+    overflow: auto;
+    border: 1px solid #666666;
+  }
+  table.votes {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    font-size: 11px;
+    min-width: 880px;
+  }
+  table.votes th, table.votes td {
+    border-right: 1px solid #999999;
+    border-bottom: 1px solid #999999;
+    padding: 4px 6px;
+  }
+  table.votes th:first-child, table.votes td:first-child { border-left: none; }
+  table.votes th:last-child, table.votes td:last-child { border-right: none; }
+  table.votes th {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background: #003366;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 10.5px;
+    border-right-color: #666666;
+    border-bottom-color: #666666;
+  }
+  table.votes th.lft { text-align: left; }
+  table.votes td { vertical-align: top; background: #FFFFFF; }
+  table.votes tr.alt td { background: #F2F2F2; }
+  td.nowrap { white-space: nowrap; }
+  td.vote { text-align: center; white-space: nowrap; }
+  /* filled cells: who voted for what, at a glance */
+  table.votes td.yea { background: #BFE8BF; color: #044A04; font-weight: bold; }
+  table.votes td.nay { background: #F5BCBC; color: #6E0000; font-weight: bold; }
+  table.votes td.abs { background: #E6E6E6; color: #666666; }
+  .result-c { color: #006600; font-weight: bold; white-space: nowrap; }
+  .result-f { color: #990000; font-weight: bold; white-space: nowrap; }
+  /* era name rows: pin below the header while their era scrolls */
+  tr.era td {
+    position: sticky;
+    top: var(--hdr-h, 34px);
+    z-index: 2;
+    background: #DDE4EE;
+    color: #003366;
+    font-weight: bold;
+    font-size: 10.5px;
+    text-align: center;
+  }
+  tr.era td.era-label { text-align: left; white-space: nowrap; }
+  tr.era td.chg { background: #FFF2A8; }
+
+  .footnotes { font-size: 11px; color: #333333; margin-top: 6px; max-width: 90ch; }
+
+  .yearlinks { font-size: 11px; margin: 4px 0 8px; }
+
+  table.agree {
+    border-collapse: collapse;
+    font-size: 11px;
+    margin-top: 6px;
+  }
+  table.agree th {
+    background: #003366; color: #FFFFFF;
+    padding: 4px 8px; border: 1px solid #666666;
+    font-size: 10.5px; text-align: center;
+  }
+  table.agree th.rowhead { text-align: left; }
+  table.agree td {
+    border: 1px solid #999999;
+    padding: 4px 8px;
+    text-align: center;
+    min-width: 52px;
+  }
+  .agree-controls { font-size: 12px; margin: 6px 0; }
+  select { font: 12px Verdana, Geneva, Arial, sans-serif; }
+
+  .disclaimerbox {
+    border: 1px solid #999999;
+    background: #F7F7F7;
+    padding: 10px 14px;
+    font-size: 11px;
+    max-width: 85ch;
+    margin: 18px 0 0;
+  }
+
+  .donatebox {
+    border: 2px solid #003366;
+    background: #FFFFCC;
+    padding: 10px 14px;
+    max-width: 480px;
+    margin: 16px 0;
+    font-size: 12px;
+  }
+  .donatebox b { color: #003366; }
+  .donate-btn {
+    font: bold 13px Verdana, Geneva, Arial, sans-serif;
+    background: #FFCC33;
+    border: 2px outset #E6B800;
+    padding: 5px 18px;
+    cursor: pointer;
+  }
+  .donate-btn:active { border-style: inset; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .footer {
+    font-size: 10px;
+    color: #555555;
+    margin: 24px 0 16px;
+    border-top: 1px solid #999999;
+    padding-top: 6px;
+    max-width: 90ch;
+  }
+</style>
+
+<div class="wrap">
+  <p class="mock-note">*** DESIGN MOCKUP &mdash; ALL NAMES, VOTES, AND FIGURES BELOW ARE SAMPLE DATA ***</p>
+
+  <h1 class="site-title">Harlingen City Commission Accountability</h1>
+  <p class="tagline">Every vote of the Harlingen City Commission, taken from the City's own published minutes. Facts only. No opinions.</p>
+
+  <p class="topnav">
+    [ <a href="#" data-page="home" class="navlink current">Votes &amp; Trends</a> |
+    <a href="#" data-page="method" class="navlink">Methodology &amp; Corrections</a> |
+    <a href="#donate" id="donate-jump">Donate</a> ]
+  </p>
+  <hr>
+
+  <!-- ==================== PAGE: HOME (table + trends + disclaimer + donate) ==================== -->
+  <div class="page active" id="page-home">
+
+    <h2>Roll call, item by item</h2>
+    <p class="updated">Last updated: July 1, 2026 &nbsp;&middot;&nbsp; 1,432 votes from 96 meetings &nbsp;&middot;&nbsp; each item links to the minutes on the City of Harlingen's website.</p>
+    <p class="yearlinks">Jump to year: <a href="#">2026</a> | <a href="#">2025</a> | <a href="#">2024</a> | <a href="#">2023</a> | <a href="#">2022</a></p>
+
+    <div class="tablebox">
+    <table class="votes">
+      <tr>
+        <th width="70" class="lft">Date</th>
+        <th width="250" class="lft">Item (links to minutes)</th>
+        <th>Mayor</th>
+        <th>District 1</th>
+        <th>District 2</th>
+        <th>District 3</th>
+        <th>District 4</th>
+        <th>District 5</th>
+        <th width="80" class="lft">Result</th>
+      </tr>
+      <tr class="era">
+        <td colspan="2" class="era-label">Members since Nov 2024:</td>
+        <td>Cavazos</td>
+        <td>Villarreal</td>
+        <td>Trevi&ntilde;o</td>
+        <td class="chg" title="Seat changed hands: J. D. Halbert took office Nov 2024, succeeding R. Garza">Halbert &#9650;</td>
+        <td>Ortega</td>
+        <td>Benavides</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="nowrap">06-04-2025</td>
+        <td><a href="https://harlingentx.portal.civicclerk.com/">Approval of minutes, regular meeting of March 19, 2025</a></td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote abs">Absent</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="result-c">Carried 5&ndash;0</td>
+      </tr>
+      <tr class="alt">
+        <td class="nowrap">05-21-2025</td>
+        <td><a href="https://harlingentx.portal.civicclerk.com/">Variance request &mdash; reduction of rear setback, 1400 block of Commerce St</a></td>
+        <td class="vote nay">Nay</td>
+        <td class="vote nay">Nay</td>
+        <td class="vote nay">Nay</td>
+        <td class="vote abs">Absent</td>
+        <td class="vote yea">Yea</td>
+        <td class="vote yea">Yea</td>
+        <td class="result-f">Failed 2&ndash;3</td>
+      </tr>
+      <tr>
+        <td class="nowrap">05-21-2025</td>
+        <td><a href="https://harlingentx.portal.civicclerk.com/">Resolution accepting FY 2025 state grant award, Police Department (consent agenda item 7b)</a></td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote abs">Absent</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="result-c">Carried 5&ndash;0</td>
+      </tr>
+      <tr class="alt">
+        <td class="nowrap">04-16-2025</td>
+        <td><a href="https://harlingentx.portal.civicclerk.com/">Award of contract &mdash; drainage improvements, Phase II</a></td>
+        <td class="vote yea">Yea</td>
+        <td class="vote nay">Nay</td>
+        <td class="vote yea">Yea</td>
+        <td class="vote yea">Yea</td>
+        <td class="vote yea">Yea</td>
+        <td class="vote abs">Absent</td>
+        <td class="result-c">Carried 4&ndash;1</td>
+      </tr>
+      <tr>
+        <td class="nowrap">02-05-2025</td>
+        <td><a href="https://harlingentx.portal.civicclerk.com/">Rezoning &mdash; 2100 block of W. Jackson Ave, R-1 to GR (first reading)</a></td>
+        <td class="vote yea">Yea</td>
+        <td class="vote nay">Nay</td>
+        <td class="vote abs">Absent</td>
+        <td class="vote yea">Yea</td>
+        <td class="vote yea">Yea</td>
+        <td class="vote nay">Nay</td>
+        <td class="result-c">Carried 3&ndash;2</td>
+      </tr>
+      <tr class="alt">
+        <td class="nowrap">01-15-2025</td>
+        <td><a href="https://harlingentx.portal.civicclerk.com/">Interlocal agreement with Cameron County &mdash; joint dispatch study</a></td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="result-c">Carried 6&ndash;0</td>
+      </tr>
+      <tr class="era">
+        <td colspan="2" class="era-label">May 2023 &ndash; Nov 2024:</td>
+        <td>Cavazos</td>
+        <td>Villarreal</td>
+        <td>Trevi&ntilde;o</td>
+        <td class="chg" title="R. Garza held the District 3 seat until Nov 2024, when J. D. Halbert took office">Garza</td>
+        <td>Ortega</td>
+        <td>Benavides</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="nowrap">10-16-2024</td>
+        <td><a href="https://harlingentx.portal.civicclerk.com/">Adoption of FY 2025 budget &mdash; second and final reading</a></td>
+        <td class="vote yea">Yea</td>
+        <td class="vote yea">Yea</td>
+        <td class="vote yea">Yea</td>
+        <td class="vote nay">Nay</td>
+        <td class="vote yea">Yea</td>
+        <td class="vote yea">Yea</td>
+        <td class="result-c">Carried 5&ndash;1</td>
+      </tr>
+      <tr class="alt">
+        <td class="nowrap">09-04-2024</td>
+        <td><a href="https://harlingentx.portal.civicclerk.com/">Setting the proposed ad valorem tax rate for FY 2025</a></td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="result-c">Carried 6&ndash;0</td>
+      </tr>
+      <tr>
+        <td class="nowrap">06-05-2024</td>
+        <td><a href="https://harlingentx.portal.civicclerk.com/">Final plat approval &mdash; Stuart Place Estates, Phase 3</a></td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="result-c">Carried 6&ndash;0</td>
+      </tr>
+      <tr class="alt">
+        <td class="nowrap">04-17-2024</td>
+        <td><a href="https://harlingentx.portal.civicclerk.com/">Purchase of two ambulances &mdash; EMS department</a></td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="result-c">Carried 6&ndash;0</td>
+      </tr>
+      <tr>
+        <td class="nowrap">02-21-2024</td>
+        <td><a href="https://harlingentx.portal.civicclerk.com/">Ordinance &mdash; curfew for city parks, first reading</a></td>
+        <td class="vote yea">Yea</td>
+        <td class="vote nay">Nay</td>
+        <td class="vote yea">Yea</td>
+        <td class="vote yea">Yea</td>
+        <td class="vote yea">Yea</td>
+        <td class="vote nay">Nay</td>
+        <td class="result-c">Carried 4&ndash;2</td>
+      </tr>
+      <tr class="alt">
+        <td class="nowrap">11-15-2023</td>
+        <td><a href="https://harlingentx.portal.civicclerk.com/">Board appointment &mdash; Harlingen Public Library advisory board</a></td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="result-c">Carried 6&ndash;0</td>
+      </tr>
+      <tr class="era">
+        <td colspan="2" class="era-label">May 2022 &ndash; May 2023:</td>
+        <td class="chg" title="A. Trujillo held the Mayor's seat until May 2023, when E. Cavazos took office">Trujillo</td>
+        <td>Villarreal</td>
+        <td>Trevi&ntilde;o</td>
+        <td>Garza</td>
+        <td>Ortega</td>
+        <td>Benavides</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="nowrap">03-15-2023</td>
+        <td><a href="https://harlingentx.portal.civicclerk.com/">Resolution &mdash; application to TxDOT aviation facilities grant program</a></td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="vote yea">Yea *</td>
+        <td class="result-c">Carried 6&ndash;0</td>
+      </tr>
+      <tr class="alt">
+        <td class="nowrap">01-18-2023</td>
+        <td><a href="https://harlingentx.portal.civicclerk.com/">Rezoning &mdash; 800 block of E. Harrison Ave (second reading)</a></td>
+        <td class="vote yea">Yea</td>
+        <td class="vote yea">Yea</td>
+        <td class="vote yea">Yea</td>
+        <td class="vote yea">Yea</td>
+        <td class="vote yea">Yea</td>
+        <td class="vote nay">Nay</td>
+        <td class="result-c">Carried 5&ndash;1</td>
+      </tr>
+    </table>
+    </div>
+
+    <p class="footnotes">
+      * Minutes record this vote as unanimous without naming each member; positions are attributed from the attendance roll.<br>
+      Absent = recorded absent for that meeting; did not vote. &mdash; Columns are seats, because officials change and seats don't:
+      the blue name row shows who held each seat for the votes beneath it and stays pinned while you scroll.
+      A <span style="background:#FFF2A8">&nbsp;yellow&nbsp;</span> name is a seat that changed hands at that point (hover it for details).
+    </p>
+
+    <h2>Voting trends &mdash; who votes with whom</h2>
+    <div class="agree-controls">
+      Period:
+      <select id="agree-year">
+        <option value="all">All years (2022&ndash;2026)</option>
+        <option value="y2025">2025</option>
+        <option value="y2024">2024</option>
+      </select>
+      &nbsp; <span class="small">Percentage of items on which the two members voted the same way, counting only items where both cast a vote. Hover a cell for the counts.</span>
+    </div>
+    <div class="scrollbox"><table class="agree" id="agree-table"></table></div>
+    <p class="footnotes">
+      Reading example: 96% means the two members voted the same way on 96% of the items where both voted.
+      High numbers are normal everywhere &mdash; most municipal items pass unanimously. Differences show up in the handful of split votes.
+      This is arithmetic on the table above, not a rating.
+    </p>
+
+    <div class="disclaimerbox" id="disclaimer">
+      <b>Disclaimer.</b> This site is an independent public-records project and is <b>not affiliated with the City of Harlingen</b>.
+      Everything shown is taken from the City's published minutes; the official record is the City's, at
+      <a href="https://harlingentx.portal.civicclerk.com/">harlingentx.portal.civicclerk.com</a>.
+      Many source documents are scanned paper read by OCR &mdash; errors are possible, and every row links to its source so you can check.
+      No endorsements, no ratings, no opinions. See <a href="#" data-page="method">Methodology &amp; corrections</a> for how records
+      are extracted, audited, and corrected.
+    </div>
+
+    <div class="donatebox" id="donate">
+      <p><b>Keeping this site running costs real money.</b></p>
+      <p>
+        The City's minutes are scanned paper documents. Reading them by machine (OCR and AI extraction)
+        costs roughly <b>$1&ndash;5 per month</b>, plus hosting. Nobody pays us and we sell nothing.
+      </p>
+      <p><button class="donate-btn" type="button">Donate</button> &nbsp;<span class="small">(PayPal / Ko-fi &mdash; placeholder)</span></p>
+      <p class="small">Donations are not tax-deductible. Surplus goes to processing more years of records.</p>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE: METHODOLOGY ==================== -->
+  <div class="page" id="page-method">
+    <h2>Methodology &amp; corrections</h2>
+
+    <h3>Where the data comes from</h3>
+    <p>
+      Every record on this site comes from the City of Harlingen's public meeting portal
+      (<a href="https://harlingentx.portal.civicclerk.com/">harlingentx.portal.civicclerk.com</a>).
+      The City does not publish minutes as standalone documents &mdash; approved minutes appear
+      inside the agenda packet of a later meeting, usually two to four months afterward. We locate
+      each set of minutes, extract the text (many packets are scanned paper, read by OCR), and
+      pull out each motion: who moved, who seconded, the outcome, and the roll call when one
+      was recorded. Extraction is done with AI assistance and checked two ways:
+    </p>
+    <ul>
+      <li>Every extracted vote keeps a verbatim quote from the minutes, automatically matched back against the source document.</li>
+      <li>A random sample of motions is compared by hand against the source PDFs at every update. Results of each audit are posted here.</li>
+    </ul>
+    <p class="small">
+      Latest audit (July 2026): 30 randomly sampled motions checked against source PDFs; 30 of 30
+      outcomes and tallies matched; 2 name spellings corrected for OCR artifacts.
+    </p>
+
+    <h3>What the marks mean</h3>
+    <p>
+      <b>*</b> &mdash; The minutes say "motion carried unanimously" without listing names. We show the members
+      recorded present that day and mark each attributed vote with an asterisk. The City did not record their votes individually.<br>
+      <b>Absent</b> &mdash; The member was recorded absent for the meeting and cast no vote on the item.<br>
+      <b>Name rows</b> &mdash; Columns are seats (Mayor, District 1&ndash;5), because officials change and seats don't.
+      A blue name row shows who held each seat for the votes beneath it and stays pinned while you scroll;
+      a yellow-highlighted name marks a seat that changed hands at that point.
+    </p>
+
+    <h3>Missing meetings</h3>
+    <p>
+      If the City has not yet posted minutes for a meeting, that meeting is listed with the note
+      "minutes not yet posted" rather than silently left out. 22 meetings currently fall in that category.
+    </p>
+
+    <h3>Corrections</h3>
+    <p>
+      If anything on this site misstates the City's minutes, we want to fix it.
+      Email <a href="mailto:corrections@example.com">corrections@example.com</a> with a link to the row
+      and the source document. We respond within 7 days. Every correction made is logged below.
+    </p>
+    <p class="small">Corrections log: none yet.</p>
+
+    <h3>What this site is not</h3>
+    <p>
+      This site contains no endorsements, no ratings, and no opinion about any vote or official.
+      It is not affiliated with the City of Harlingen. The official record is the City's.
+    </p>
+  </div>
+
+  <div class="footer">
+    Harlingen City Commission Accountability is an independent public-records project. Not affiliated with the City of Harlingen.
+    The official record is the City's, at
+    <a href="https://harlingentx.portal.civicclerk.com/">harlingentx.portal.civicclerk.com</a>.
+    Found an error? See <a href="#" data-page="method">Methodology &amp; corrections</a>.
+    &nbsp;|&nbsp; Last updated 07-01-2026.
+  </div>
+</div>
+
+<script>
+  // ---- pin era name rows just below the sticky header ----
+  const firstTh = document.querySelector('table.votes th');
+  document.querySelector('.tablebox').style.setProperty('--hdr-h', firstTh.offsetHeight + 'px');
+
+  // ---- mock page switching ----
+  const pages = {
+    home: document.getElementById('page-home'),
+    method: document.getElementById('page-method'),
+  };
+  function showPage(name) {
+    Object.entries(pages).forEach(([k, el]) => el.classList.toggle('active', k === name));
+    document.querySelectorAll('.topnav a.navlink').forEach(n =>
+      n.classList.toggle('current', n.dataset.page === name));
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll('a[data-page]').forEach(a =>
+    a.addEventListener('click', e => { e.preventDefault(); showPage(a.dataset.page); })
+  );
+  document.getElementById('donate-jump').addEventListener('click', e => {
+    e.preventDefault();
+    showPage('home');
+    document.getElementById('donate').scrollIntoView();
+  });
+
+  // ---- agreement matrix (sample data) ----
+  const MEMBERS = ['Cavazos', 'Villarreal', 'Treviño', 'Halbert', 'Ortega', 'Benavides'];
+  // symmetric matrices of % agreement; -1 on diagonal
+  const AGREE = {
+    all: { shared: 412, m: [
+      [ -1, 92, 96, 94, 95, 90],
+      [ 92, -1, 91, 89, 90, 95],
+      [ 96, 91, -1, 93, 96, 91],
+      [ 94, 89, 93, -1, 92, 88],
+      [ 95, 90, 96, 92, -1, 93],
+      [ 90, 95, 91, 88, 93, -1],
+    ]},
+    y2025: { shared: 118, m: [
+      [ -1, 88, 95, 93, 96, 86],
+      [ 88, -1, 90, 85, 88, 94],
+      [ 95, 90, -1, 92, 95, 89],
+      [ 93, 85, 92, -1, 91, 84],
+      [ 96, 88, 95, 91, -1, 91],
+      [ 86, 94, 89, 84, 91, -1],
+    ]},
+    y2024: { shared: 131, m: [
+      [ -1, 94, 97, 95, 94, 92],
+      [ 94, -1, 92, 90, 91, 96],
+      [ 97, 92, -1, 94, 97, 92],
+      [ 95, 90, 94, -1, 93, 90],
+      [ 94, 91, 97, 93, -1, 94],
+      [ 92, 96, 92, 90, 94, -1],
+    ]},
+  };
+  function shade(pct) {
+    // 80% -> white, 100% -> light steel blue
+    const t = Math.max(0, Math.min(1, (pct - 80) / 20));
+    const mix = (a, b) => Math.round(a + (b - a) * t);
+    return 'rgb(' + mix(255, 170) + ',' + mix(255, 200) + ',' + mix(255, 226) + ')';
+  }
+  function renderAgree(key) {
+    const data = AGREE[key];
+    const t = document.getElementById('agree-table');
+    let html = '<tr><th class="rowhead">&nbsp;</th>' +
+      MEMBERS.map(n => '<th>' + n + '</th>').join('') + '</tr>';
+    for (let i = 0; i < MEMBERS.length; i++) {
+      html += '<tr><th class="rowhead">' + MEMBERS[i] + '</th>';
+      for (let j = 0; j < MEMBERS.length; j++) {
+        const v = data.m[i][j];
+        if (v < 0) { html += '<td style="background:#DDDDDD">&mdash;</td>'; continue; }
+        const agreed = Math.round(v * data.shared / 100);
+        html += '<td style="background:' + shade(v) + '" title="' +
+          MEMBERS[i] + ' & ' + MEMBERS[j] + ': voted the same way on ' + agreed +
+          ' of ' + data.shared + ' shared votes">' + v + '%</td>';
+      }
+      html += '</tr>';
+    }
+    t.innerHTML = html;
+  }
+  document.getElementById('agree-year').addEventListener('change', e => renderAgree(e.target.value));
+  renderAgree('all');
+</script>

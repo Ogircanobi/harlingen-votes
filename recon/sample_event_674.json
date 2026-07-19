@@ -1,0 +1,56 @@
+{
+  "id": 674,
+  "eventName": "City Commission Regular Meeting",
+  "eventDate": "2026-06-17T17:30:00Z",
+  "startDateTime": "2026-06-17T17:30:00Z",
+  "isPublished": "Published",
+  "categoryName": "City Commission",
+  "categoryId": 26,
+  "eventCategoryName": "City Commission",
+  "meetingTypeName": null,
+  "hasAgenda": true,
+  "hasMedia": true,
+  "agendaId": 592,
+  "agendaName": "Regular City Commission Meeting",
+  "agendaFile": {
+    "agendaId": 0,
+    "fileName": null,
+    "dateUploaded": "0001-01-01T00:00:00Z",
+    "createdBy": " "
+  },
+  "minutesFile": {
+    "minutesId": 0,
+    "eventId": 0,
+    "fileName": null,
+    "createdOn": "0001-01-01T00:00:00Z",
+    "createdBy": " "
+  },
+  "publishedFiles": [
+    {
+      "id": 0,
+      "fileId": 1516,
+      "publishTo": null,
+      "type": "Agenda",
+      "publishOn": "2026-06-11T16:14:49.15Z",
+      "publishBy": null,
+      "name": "Agenda Final",
+      "url": "stream/HARLINGENTX/96aee894-b5f9-463c-8561-9ecf5658d090.pdf",
+      "sort": 1,
+      "fileType": 1,
+      "streamUrl": null
+    },
+    {
+      "id": 0,
+      "fileId": 1518,
+      "publishTo": null,
+      "type": "Agenda Packet",
+      "publishOn": "2026-06-14T00:00:00Z",
+      "publishBy": null,
+      "name": "Agenda Packet",
+      "url": "stream/HARLINGENTX/2638ea9b-1d57-41f5-9327-d7172854d056.pdf",
+      "sort": 2,
+      "fileType": 2,
+      "streamUrl": null
+    }
+  ]
+}
