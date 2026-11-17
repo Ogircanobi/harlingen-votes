@@ -7,4 +7,5 @@ output/
 downloads/
 recon/network_log*.json
 .claude/
+CLAUDE.md
 .DS_Store
